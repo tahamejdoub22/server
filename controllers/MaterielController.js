@@ -21,9 +21,7 @@ const addmateriel = async (req, res, next) => {
         const new_materiel = await Materiel.create({ materielName,matrielImage,type });
 
         res.status(201).json({
-            success: true,
-            msg: 'Type created',
-            data: new_materiel
+             new_materiel
         });
     } catch (error) {
 
@@ -53,9 +51,7 @@ const getAllmateriel = async (req, res, next) => {
 
 
         res.json({
-            success: true,
-            count: materielCount.length,
-            data: materiel
+             materiel
         })
     } catch (error) {
         res.status(500).json({
@@ -74,8 +70,7 @@ const getMaterielById = async (req, res, next) => {
             .populate({ path: 'type', select: ['_id', 'type_name'] });
 
         res.json({
-            success: true,
-            data: materiel
+             materiel
         })
 
     } catch (error) {
@@ -96,9 +91,7 @@ const getSlidermateriel = async (req, res, next) => {
             .populate({ path: 'type', select: ['_id', 'type_name'] });
 
         res.json({
-            success: true,
-            count: materiel.length,
-            data: materiel
+           materiel
         })
 
     } catch (error) {
@@ -119,9 +112,7 @@ const getMaterielByType= async (req, res, next) => {
             .populate({ path: 'type', select: ['_id', 'type_name'] });
 
         res.json({
-            success: true,
-            count: materiel.length,
-            data: materiel
+           materiel
         })
 
     } catch (error) {

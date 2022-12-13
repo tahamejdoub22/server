@@ -7,14 +7,6 @@ const materialSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Type'
     },
-    views: {
-        type: Number,
-        default: 0
-    },
-    addToSlider: {
-        type: Boolean,
-        default: false
-    },
     comments: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,

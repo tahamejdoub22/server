@@ -41,9 +41,8 @@ const addType = async (req, res, next) => {
         const new_type = await Type.create({ type_name });
 
         res.status(201).json({
-            success: true,
-            msg: 'Type created',
-            data: new_type
+         
+             new_type
         });
     } catch (error) {
 
@@ -80,9 +79,7 @@ const deleteType = async (req, res, next) => {
         const type = await Type.findByIdAndDelete(req.params.catId);
 
         res.status(201).json({
-            success: true,
-            msg: 'Successfully Deleted',
-            data: type
+             type
         });
 
         if (!type) {
@@ -111,9 +108,8 @@ const editType = async (req, res, next) => {
         });
 
         res.status(201).json({
-            success: true,
-            msg: 'Successfully Updated',
-            data: type
+           
+             type
         });
 
         if (!type) {
