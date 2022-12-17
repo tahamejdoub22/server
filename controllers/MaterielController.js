@@ -2,8 +2,15 @@ const Materiel = require('../models/MaterielModel');
 const ImageToBase64 = require('image-to-base64');
 const typeModel = require('../models/typeModel');
 
-
-
+function addRandom(collection) { 
+    collection.find().forEach(function (obj) {
+        obj.random = Math.random();
+        collection.save(obj);
+    }); 
+} 
+function get_random (list) {
+  return list[Math.floor((Math.random()*list.length))];
+}
 // @desc -> Add materiel
 const addmateriel = async (req, res, next) => {
     try {
@@ -20,7 +27,7 @@ const addmateriel = async (req, res, next) => {
 
         const new_materiel = await Materiel.create({ materielName,matrielImage,type });
 
-        res.status(201).json({
+        res.status(200).json({
              new_materiel
         });
     } catch (error) {
@@ -45,14 +52,16 @@ const getAllmateriel = async (req, res, next) => {
 
         const materielCount = await Materiel.find({});
 
-        const materiel = await Materiel.find({})
-         .populate({ path: 'type', select: ['_id','type_name'],model:typeModel} )
-        
+        const materiel = await Materiel.find({ 
+
+        }).populate({ path: 'type', select: ['type_name'],model:typeModel} )
 
 
         res.json({
-             materiel
-        })
+materiel    })
+
+//materielitem:get_random(materiel)
+
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -60,6 +69,33 @@ const getAllmateriel = async (req, res, next) => {
         });
     }
 }
+// @desc -> Fetch All materiel
+const getRandommateriel = async (req, res, next) => {
+    try {
+
+
+        
+
+        const materielCount = await Materiel.find({});
+
+        const materiel = await Materiel.find({ 
+
+        }).populate({ path: 'type', select: ['type_name'],model:typeModel} )
+
+
+        res.json({
+materiel:get_random(materiel)        })
+
+//materielitem:get_random(materiel)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            msg: 'Internal error occured.'
+        });
+    }
+}
+
 
 
 // @desc Get materiel By Id
@@ -190,5 +226,6 @@ module.exports = {
     getSlidermateriel,
     getMaterielByType,
     deleteMaterielById,
-    editmateriel
+    editmateriel,
+    getRandommateriel
 }
