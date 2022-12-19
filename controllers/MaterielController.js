@@ -1,6 +1,7 @@
 const Materiel = require('../models/MaterielModel');
 const ImageToBase64 = require('image-to-base64');
 const typeModel = require('../models/typeModel');
+const UserModel = require('../models/UserModel');
 
 function addRandom(collection) { 
     collection.find().forEach(function (obj) {
@@ -14,7 +15,7 @@ function get_random (list) {
 // @desc -> Add materiel
 const addmateriel = async (req, res, next) => {
     try {
-        const { materielName, matrielImage,type} = req.body;
+        const { materielName, matrielImage,type,description,Like,user} = req.body;
 
         const materiel = await Materiel.findOne({ materielName: materielName });
 
@@ -25,7 +26,7 @@ const addmateriel = async (req, res, next) => {
             });
         }
 
-        const new_materiel = await Materiel.create({ materielName,matrielImage,type });
+        const new_materiel = await Materiel.create({ materielName,matrielImage,type,description,Like,user });
 
         res.status(200).json({
              new_materiel
@@ -55,7 +56,7 @@ const getAllmateriel = async (req, res, next) => {
         const materiel = await Materiel.find({ 
 
         }).populate({ path: 'type', select: ['type_name'],model:typeModel} )
-
+        .populate({ path: 'user', select: ['name'],model:UserModel} )
 
         res.json({
 materiel    })
@@ -80,11 +81,13 @@ const getRandommateriel = async (req, res, next) => {
 
         const materiel = await Materiel.find({ 
 
-        }).populate({ path: 'type', select: ['type_name'],model:typeModel} )
+        }).limit(50).populate({ path: 'type', select: ['type_name'],model:typeModel} ).populate({ path: 'user', select: ['name'],model:UserModel} )
 
+        const Materiels = materiel.sort(() => Math.random() - 0.5);
 
+      
         res.json({
-materiel:get_random(materiel)        })
+Materiels    })
 
 //materielitem:get_random(materiel)
 
@@ -103,7 +106,8 @@ const getMaterielById = async (req, res, next) => {
     try {
 
         const materiel = await Materiel.findById(req.params.materielId)
-            .populate({ path: 'type', select: ['_id', 'type_name'] });
+            .populate({ path: 'type', select: [ 'type_name'] }).populate({ path: 'user', select: ['name'],model:UserModel} )
+            ;
 
         res.json({
              materiel
@@ -123,8 +127,9 @@ const getMaterielById = async (req, res, next) => {
 const getSlidermateriel = async (req, res, next) => {
     try {
 
-        const materiel = await Materiel.find({ addToSlider: true })
-            .populate({ path: 'type', select: ['_id', 'type_name'] });
+        const materiel = await Materiel.find({ Like: true })
+            .populate({ path: 'type', select: ['_id', 'type_name'] }).populate({ path: 'user', select: ['name'],model:UserModel} )
+            ;
 
         res.json({
            materiel
@@ -145,7 +150,8 @@ const getMaterielByType= async (req, res, next) => {
     try {
 
         const materiel = await Materiel.find({ type: req.params.catId })
-            .populate({ path: 'type', select: ['_id', 'type_name'] });
+            .populate({ path: 'type', select: ['_id', 'type_name'] }).populate({ path: 'user', select: ['name'],model:UserModel} )
+            ;
 
         res.json({
            materiel
