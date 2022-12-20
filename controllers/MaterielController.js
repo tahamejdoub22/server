@@ -127,7 +127,7 @@ const getMaterielById = async (req, res, next) => {
 const getSlidermateriel = async (req, res, next) => {
     try {
 
-        const materiel = await Materiel.find({ Like: true })
+        const materiel = await Materiel.find({ Like: true,user: req.params.userid })
             .populate({ path: 'type', select: ['_id', 'type_name'] }).populate({ path: 'user', select: ['name'],model:UserModel} )
             ;
 

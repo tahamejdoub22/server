@@ -16,7 +16,7 @@ router.route('/getAllMateriel').get(getAllmateriel);
 router.route('/getRandomMateriel').get(getRandommateriel);
 
 router.route('/getById/:materielId').get(getMaterielById);
-router.route('/getAllMateriel/slider').get(getSlidermateriel);
+router.route('/getAllMateriel/slider/:userid').get(getSlidermateriel);
 router.route('/getByType/:catId').get(getMaterielByType);
 
 router.route('/deleteMateriel/:materielId').delete(protect, deleteMaterielById);
