@@ -5,7 +5,7 @@ const crypto = require('crypto');
 
 const registerUser = async (req, res, next) => {
     try {
-        const { FirstName,LastName, email, password,address,phone,codePostal,city,country } = req.body;
+        const { FirstName,LastName, email, password,address,Phone,codePostal,city,country } = req.body;
 
         const userExists = await User.findOne({ email });
 
@@ -18,7 +18,7 @@ const registerUser = async (req, res, next) => {
 
 
         const user = new User({
-            FirstName,LastName, email, password,address,phone,city,codePostal,country
+            FirstName,LastName, email, password,address,Phone,city,codePostal,country
         });
 
 
@@ -58,7 +58,7 @@ const authUser = async (req, res) => {
             city:user.city,
             country:user.country,
             address:user.address,
-            phone:user.phone,
+            phone:user.Phone,
             points:user.points,
             token: generateToken(user._id)
         })
@@ -77,9 +77,16 @@ const getUserProfile = async (req, res) => {
     if (user) {
         res.json({
             _id: user.id,
-            name: user.name,
+            FirstName: user.FirstName,
+            LastName: user.LastName,
             email: user.email,
-            avatar: user.avatar
+            avatar: user.avatar,
+            codePostal:user.codePostal,
+            city:user.city,
+            country:user.country,
+            address:user.address,
+            phone:user.Phone,
+            points:user.points,
         })
     } else {
         res.status(404).json({

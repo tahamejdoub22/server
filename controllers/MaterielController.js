@@ -126,7 +126,8 @@ const getMaterielById = async (req, res, next) => {
 // @desc Get Slider materiel
 const getSlidermateriel = async (req, res, next) => {
     try {
-
+        const user = await UserModel.findById(req.header._id);
+if(user){
         const materiel = await Materiel.find({ Like: true,user: req.params.userid })
             .populate({ path: 'type', select: ['_id', 'type_name'] }).populate({ path: 'user', select: ['name'],model:UserModel} )
             ;
@@ -134,7 +135,7 @@ const getSlidermateriel = async (req, res, next) => {
         res.json({
            materiel
         })
-
+    }
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -148,8 +149,9 @@ const getSlidermateriel = async (req, res, next) => {
 // @desc Get materiel By Type
 const getMaterielByType= async (req, res, next) => {
     try {
+        const type = await typeModel.findById(req.params._id);
 
-        const materiel = await Materiel.find({ type: req.params.catId })
+        const materiel = await Materiel.find({ type :req.params.catId })
             .populate({ path: 'type', select: ['_id', 'type_name'] }).populate({ path: 'user', select: ['name'],model:UserModel} )
             ;
 

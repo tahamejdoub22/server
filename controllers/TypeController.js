@@ -27,7 +27,7 @@ const addPoints=async(req,res,next)=>{
 // @desc Add Catgory
 const addType = async (req, res, next) => {
     try {
-        const { type_name } = req.body;
+        const { type_name,description, typeImage} = req.body;
 
         const type = await Type.findOne({ type_name: type_name });
 
@@ -38,7 +38,7 @@ const addType = async (req, res, next) => {
             });
         }
 
-        const new_type = await Type.create({ type_name });
+        const new_type = await Type.create({ type_name ,description,typeImage});
 
         res.status(201).json({
          
@@ -60,8 +60,7 @@ const getAllTypes = async (req, res, next) => {
     try {
         const Types = await Type.find({});
         res.json({
-            success: true,
-            data: Types
+             Types
         })
     } catch (error) {
         res.status(500).json({
