@@ -4,6 +4,8 @@ const connectDB = require('./config/db');
 const userRoute = require('./routes/userRoute');
 const MaterielRoute = require('./routes/MaterielRoute');
 const TypeRoute = require('./routes/typeRoute');
+const eventRoute = require('./routes/eventRoute');
+
 const formData = require('express-form-data');
 
 require('dotenv').config();
@@ -24,6 +26,7 @@ app.use(formData.parse());
 app.use('/api/users', userRoute);
 app.use('/api/Materiel', MaterielRoute);
 app.use('/api/Type', TypeRoute);
+app.use('/api/Event', eventRoute);
 
 
 app.get('*', function (req, res) {
