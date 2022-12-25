@@ -10,6 +10,7 @@ const User =require('../models/UserModel')
 
 const addPoints=async(req,res,next)=>{
     try{
+        const { points} = req.body;
 
 
 

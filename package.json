@@ -1,17 +1,19 @@
 {
   "name": "newsappapidev-master",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-form-data": "^2.0.17",
+    "gridfs-stream": "^1.1.1",
     "image-to-base64": "^2.2.0",
     "is-ci": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "lodash.foreach": "^4.5.0",
     "lodash.get": "^4.4.2",
@@ -19,13 +21,15 @@
     "mime": "^1.6.0",
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.12",
     "nopt": "^1.0.10",
     "rc": "^1.2.8",
     "semver": "^5.7.1",
     "touch": "^3.1.0",
-    "vercel": "^28.8.0"
+    "vercel": "^19.1.2"
   },
   "scripts": {
     "start": "nodemon server.js"
@@ -35,5 +39,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tahamejdoub22/miniprojet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tahamejdoub22/miniprojet/issues"
+  },
+  "homepage": "https://github.com/tahamejdoub22/miniprojet#readme",
+  "description": ""
 }

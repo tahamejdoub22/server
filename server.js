@@ -1,20 +1,26 @@
 const express = require('express');
+const path=require('path')
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const userRoute = require('./routes/userRoute');
 const MaterielRoute = require('./routes/MaterielRoute');
 const TypeRoute = require('./routes/typeRoute');
-const eventRoute = require('./routes/eventRoute');
-
 const formData = require('express-form-data');
-
+const cors=require('cors')
 require('dotenv').config();
 require('colors');
-
+const BodyParser=require('body-parser')
+const fileRoutes=require('./routes/file-upload-route');
+const eventRoutes=require('./routes/eventRoute');
 
 connectDB();
 
 const app = express();
+app.use(cors())
+app.use(BodyParser.json())
+app.use('/uploads',express.static(path.join(__dirname,'uploads')))
+app.use('/dev',fileRoutes.routes)
+
 
 if (process.env.NODE_ENV === 'development')
     app.use(morgan('dev'));
@@ -26,7 +32,7 @@ app.use(formData.parse());
 app.use('/api/users', userRoute);
 app.use('/api/Materiel', MaterielRoute);
 app.use('/api/Type', TypeRoute);
-app.use('/api/Event', eventRoute);
+app.use('/api/Event', eventRoutes);
 
 
 app.get('*', function (req, res) {

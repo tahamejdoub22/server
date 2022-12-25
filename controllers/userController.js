@@ -126,10 +126,36 @@ const updateUserProfile = async (req, res) => {
 
 
 }
+const updatepoint = async (req, res) => {
+    const user = await User.findById(req.header._id);
+
+    if (user) {
+        user.points = req.body.points || user.points;
+
+
+
+        const updatedUser = await user.save();
+
+        res.json({
+            points: updatedUser.points,
+            token: generateToken(updatedUser._id)
+        })
+
+    } else {
+        res.status(404).json({
+            sucess: false,
+            msg: 'User not found'
+        });
+    }
+
+
+
+}
 
 module.exports = {
     registerUser,
     authUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    updatepoint
 }
