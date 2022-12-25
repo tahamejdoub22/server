@@ -20,7 +20,6 @@ const filefilter=(req,file,cb)=>{
     }
 }
 const upload=multer({storage:storage,fileFilter:filefilter})
-const filePath = path.join("/uploads");
 fs.writeFileSync(filePath, JSON.stringify(upload));
 module.exports={upload}
 
